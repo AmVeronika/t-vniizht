@@ -1,0 +1,42 @@
+html {
+   scroll-behavior: smooth;
+   font-size: 10px;
+   @media (max-width: 1339px) {
+      @include adaptiv-font(10, 4.26084);
+   }
+}
+
+.container {
+   max-width: $desktopwidth;
+   margin: 0 auto;
+   padding: 30px;
+   width: 100%;
+   @media (max-width: $level_7) {
+      padding: 20px;
+   }
+}
+
+section,
+article,
+header,
+footer,
+aside {
+   display: block;
+}
+
+#app {
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+   font-family: $fontfamily;
+   min-width: $level_9;
+   min-height: 100vh;
+}
+
+.main {
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+   flex-grow: 1;
+}
+
