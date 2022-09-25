@@ -1,32 +1,33 @@
 <template>
   <div class="stats__test">
-    <table class="test__table">
-      <thead>
-      <tr>
-        <th v-for="title in titleTable" :key="'item'+title">
-          <p>{{ stringConversion(title.label) }}</p>
-          <div class="array">
-            <span class="array__btn" @click="sorting(tbody, title.name, true)">&#129085;</span>
-            <span class="array__btn" @click="sorting(tbody, title.name, false)">&#129087;</span>
-          </div>
-        </th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr v-for="line in tbody"
-          :key="'id'+line.id"
-          @click="$emit('openModal', line)">
-        <td v-for="(td, index) in titleTable" :key="index"
-            :title="td.name === 'lastOperDt' ? convertReceivedDate(line[td.name]) : line[td.name]">
+    <div style="width: 100%">
+      <table class="test__table">
+        <thead>
+        <tr>
+          <th v-for="title in titleTable" :key="'item'+title">
+            <p>{{ stringConversion(title.label) }}</p>
+            <div class="array">
+              <span class="array__btn" @click="sorting(tbody, title.name, true)">&#129085;</span>
+              <span class="array__btn" @click="sorting(tbody, title.name, false)">&#129087;</span>
+            </div>
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="line in tbody"
+            :key="'id'+line.id"
+            @click="$emit('openModal', line)">
+          <td v-for="(td, index) in titleTable" :key="index"
+              :title="td.name === 'lastOperDt' ? convertReceivedDate(line[td.name]) : line[td.name]">
           <span v-if="td.name === 'lastOperDt'">
             {{ !line[td.name] ? '&#8211;' : convertReceivedDate(line[td.name]) }}
           </span>
-          <span v-else>{{ line[td.name] }}</span>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-    <div v-if="!tbody"> No data found</div>
+            <span v-else>{{ line[td.name] }}</span>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <div v-if="!tbody"> No data found</div></div>
   </div>
 </template>
 
@@ -74,9 +75,6 @@ export default {
 </script>
 <style scoped lang='scss'>
 thead {
-  position: sticky;
-  top: 0;
-  left: 0;
   height: 6rem;
 }
 

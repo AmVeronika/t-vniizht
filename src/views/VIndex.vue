@@ -10,6 +10,7 @@
     </WrapperModal>
     <DataSearch @update:model-value="search = $event"/>
     <TableV :tableData="table" @openModal="getData"></TableV>
+    <PieChart :dataChart="dataChart"/>
   </div>
 </template>
 
@@ -21,6 +22,7 @@ import DataSearch from '@/components/DataSearch'
 import {showModalWindow} from "@/mixins/showModalWindow";
 import {mapGetters} from "vuex";
 import {filterData} from "@/helpers/sorting";
+import PieChart from "@/components/chart/PieChart";
 
 export default {
   name: "VIndex",
@@ -30,17 +32,33 @@ export default {
     WrapperModal,
     DataEditForm,
     DataSearch,
+    PieChart,
   },
   data() {
     return {
       dataToEdit: null,
       layout: '',
       search: '',
+      dataChart: {
+        labels: [],
+        data: [],
+        title: 'Статистика по stateId',
+      }
     };
   },
   mounted() {
     this.table = JSON.parse(JSON.stringify(this.tableData));
-    console.log(this.table)
+    const arrStateId = this.tableData.map(el => el.stateId)
+    const countStateId = {}
+    for (let elem of arrStateId) {
+      if (countStateId[elem] === undefined) {
+        countStateId[elem] = 1;
+      } else {
+        countStateId[elem]++;
+      }
+    }
+    this.dataChart.labels = Object.keys(countStateId);
+    this.dataChart.data = Object.values(countStateId);
   },
   computed: {
     ...mapGetters({
